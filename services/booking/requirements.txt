@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+beanie
+motor
+pydantic
+python-dotenv
+passlib[bcrypt]
+redis
+pika
+pyjwt

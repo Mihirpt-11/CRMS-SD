@@ -1,0 +1,19 @@
+@import './SignIn.css';
+
+.form-subtitle {
+  color: #64748b;
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.success-message {
+  background: #ecfdf5;
+  color: #047857;
+  padding: 0.75rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #a7f3d0;
+}
+

@@ -1,0 +1,8 @@
+fastapi
+uvicorn[standard]
+strawberry-graphql
+httpx
+python-dotenv
+redis
+pyjwt
+passlib[bcrypt]

@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+beanie
+motor
+pydantic
+python-dotenv
+pika
+pyjwt
+passlib[bcrypt]

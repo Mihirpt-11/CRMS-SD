@@ -1,0 +1,121 @@
+http://localhost
+all the data has been deleted from the database
+student 1
+Mihir patel
+pass:student
+student 2
+Pankti Pandya
+pass:student
+
+Admin user
+Admin
+pass: admin
+
+Faculty
+faculty 
+pass:faculty
+
+
+Created 2 labs 401 501 ; 2 hostel rooms H401 H 402
+student books a lab but not shown in the bookings tab.
+
+okay can see after reload. both the bookings and the service request. but the start date and end date are shown invalid
+
+now th faculty will try to validate that reuest.
+the approved faculty and everything si been shown in the dashbaord .
+
+the admin is not able to see the request made ? try to debug if possible.
+
+A hostel room should be allocated to the student add a module for that in the admin dashboard.where the admin will feth all the users from the database and will allocate the room to a user.
+
+
+whioe creating the allocation to the room use user_id from the database.
+
+
+rabbit mq to make decoupled microservices Based on your uploaded events.py files, your services send events like:
+-> Booking Service
+booking.created
+resource.created
+->Hostel Service
+hostel.room.created
+hostel.allocation.done
+maintenance.created
+-> Request Service
+request.created
+request.updated
+
+rabbit mq uid http://localhost:15672
+username: guest
+password: guest
+
+showing load balancing live
+Step 1: Run the system
+docker compose up --build
+Step 2: Open 3 separate terminals and run:
+docker logs -f booking-service-1
+docker logs -f booking-service-2
+docker logs -f booking-service-3
+Step 3: Send repeated requests:
+for i in {1..20}; do curl -s http://localhost/booking/health; echo ""; done
+
+
+How to See Rate Limiting LIVE
+Run:
+for i in {1..40}; do curl -I http://localhost/auth/health; done
+
+
+Open browser → DevTools → Network for rest and graphql.
+
+
+POST http://localhost/auth/signup
+{
+  "username": "mihir",
+  "password": "123456",
+  "role": "student"
+}
+
+POST http://localhost/auth/login
+{
+  "username": "mihir",
+  "password": "123456"
+}
+
+POST http://localhost/booking/resource
+{
+  "name": "IT Lab",
+  "type": "lab",
+  "location": "W block",
+  "capacity": 40
+}
+
+
+ADMIN CREATES A LAB RESOURCE
+🧑‍💼 Admin Action
+Admin → Dashboard → “Add Resource” (lab/classroom).
+Frontend → NGINX
+POST /booking/resource
+NGINX → Booking Service
+Booking Service
+Validates input
+Stores resource in MongoDB (resources collection)
+Booking service → Redis
+Invalidates cache (so updated resource list appears instantly)
+Response → Frontend
+Admin sees “Resource created successfully”.
+
+
+Student selects resource → chooses time → “Create Booking”.
+🔄 System Workflow
+Frontend → NGINX
+Booking Service
+Validates time
+Checks Redis for availability
+Stores booking in MongoDB
+Publishes event to RabbitMQ:
+booking.created
+RabbitMQ → Notification Worker
+Worker consumes event:
+prints log like “Booking Created for User X”
+(can be extended to send email)
+Frontend
+Shows “Booking created!” and updates dashboard.
